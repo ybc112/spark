@@ -137,7 +137,8 @@ button {
 .claim-head,
 .card-head,
 .action-grid,
-.mode-tabs {
+.mode-tabs,
+.lease-headline {
   display: flex;
   align-items: center;
 }
@@ -378,6 +379,12 @@ button {
   opacity: 0.68;
 }
 
+.menu-actions button:disabled,
+.wallet-btn:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
 .hero-panel,
 .glass-card,
 .growth-card {
@@ -613,7 +620,7 @@ h2 {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
   margin-top: 18px;
 }
@@ -651,6 +658,10 @@ h2 {
   color: var(--green);
 }
 
+.stat-card.rose strong {
+  color: var(--rose);
+}
+
 .mode-tabs {
   position: sticky;
   top: 12px;
@@ -662,11 +673,17 @@ h2 {
   border-radius: 18px;
   background: rgba(7, 8, 20, 0.78);
   backdrop-filter: blur(18px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.mode-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .tab {
-  flex: 1 1 0;
-  min-width: 0;
+  flex: 1 0 68px;
+  min-width: 68px;
   height: 42px;
   padding: 0 6px;
   border-radius: 12px;
@@ -728,7 +745,8 @@ h2 {
   gap: 12px;
 }
 
-.trade-box {
+.trade-box,
+.control-box {
   display: grid;
   gap: 12px;
   margin-top: 16px;
@@ -746,7 +764,8 @@ h2 {
   gap: 10px;
 }
 
-.trade-box label {
+.trade-box label,
+.control-box label {
   display: grid;
   gap: 7px;
   color: var(--muted);
@@ -754,7 +773,9 @@ h2 {
 }
 
 .trade-box input,
-.trade-box select {
+.trade-box select,
+.control-box input,
+.control-box select {
   width: 100%;
   min-width: 0;
   height: 42px;
@@ -769,7 +790,9 @@ h2 {
 }
 
 .trade-box input:focus,
-.trade-box select:focus {
+.trade-box select:focus,
+.control-box input:focus,
+.control-box select:focus {
   border-color: rgba(255, 214, 107, 0.58);
   box-shadow: 0 0 0 3px rgba(255, 214, 107, 0.12);
 }
@@ -780,7 +803,10 @@ h2 {
 
 .metric-list div,
 .rank-row,
-.income-table div {
+.income-table div,
+.mini-metrics div,
+.optimization-list div,
+.lease-row {
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.04);
@@ -797,6 +823,8 @@ h2 {
 .metric-list span,
 .rank-row span,
 .income-table span,
+.mini-metrics span,
+.optimization-list span,
 .supply span,
 .burn-rule span,
 .bars span {
@@ -867,6 +895,35 @@ h2 {
   color: rgba(255, 255, 255, 0.62);
 }
 
+.mini-metrics,
+.optimization-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.mini-metrics div,
+.optimization-list div {
+  display: grid;
+  gap: 8px;
+  min-height: 78px;
+  padding: 13px;
+}
+
+.mini-metrics strong,
+.optimization-list strong {
+  color: var(--gold);
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.optimization-list small {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
 .token-card {
   gap: 14px;
 }
@@ -898,6 +955,31 @@ h2 {
     rgba(255, 255, 255, 0.04);
   color: var(--gold);
   font-weight: 800;
+}
+
+.inline-action.subtle {
+  border-color: rgba(82, 184, 255, 0.36);
+  background:
+    linear-gradient(135deg, rgba(82, 184, 255, 0.13), rgba(98, 228, 166, 0.08)),
+    rgba(255, 255, 255, 0.035);
+  color: #a9dcff;
+}
+
+.tool-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.status-line,
+.empty-line {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.empty-line {
+  padding: 14px 0 0;
 }
 
 .bars {
@@ -932,6 +1014,70 @@ h2 {
   color: var(--text);
   font-size: 13px;
   text-align: right;
+}
+
+.lease-headline {
+  justify-content: space-between;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.lease-headline strong {
+  color: var(--gold);
+}
+
+.lease-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.lease-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 13px 14px;
+}
+
+.lease-row strong,
+.lease-row span {
+  display: block;
+}
+
+.lease-row strong {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.lease-row span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.lease-row em {
+  color: var(--green);
+  font-style: normal;
+  font-weight: 800;
+}
+
+.lease-row button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(250, 67, 102, 0.42);
+  border-radius: 12px;
+  background: rgba(250, 67, 102, 0.1);
+  color: var(--rose);
+  cursor: pointer;
+}
+
+.lease-row button svg {
+  width: 18px;
+  height: 18px;
 }
 
 .growth-card {
@@ -1058,7 +1204,10 @@ h2 {
 
   .income-table div,
   .bars label,
-  .growth-card li {
+  .growth-card li,
+  .mini-metrics,
+  .optimization-list,
+  .tool-actions {
     grid-template-columns: 1fr;
   }
 
