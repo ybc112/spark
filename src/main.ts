@@ -8,7 +8,7 @@ import {
   formatToken,
   hasWallet,
   isConfigured,
-  oneSpe,
+  oneSpc,
   rankNames,
   shortAddress,
   type WalletRuntime,
@@ -79,7 +79,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <button type="button" data-menu-view="mine"><i data-lucide="gem"></i><span>矿机配置</span></button>
         <button type="button" data-menu-view="node"><i data-lucide="crown"></i><span>节点权益</span></button>
         <button type="button" data-menu-view="invite"><i data-lucide="share-2"></i><span>代际收益</span></button>
-        <button type="button" data-menu-view="token"><i data-lucide="flame"></i><span>SPE 销毁</span></button>
+        <button type="button" data-menu-view="token"><i data-lucide="flame"></i><span>SPC 销毁</span></button>
       </div>
       <div class="menu-panel">
         <span>链上状态</span>
@@ -96,13 +96,13 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
     <section class="hero-panel">
       <div class="ticker-row">
-        <span>MY SPE</span>
+        <span>MY SPC</span>
         <strong><i data-lucide="trending-up"></i> +0.1</strong>
       </div>
       <div class="balance-line">
         <div>
-          <p class="eyebrow">SPE 总数量</p>
-          <h1 id="speBalance">21.45</h1>
+          <p class="eyebrow">SPC 总数量</p>
+          <h1 id="spcBalance">21.45</h1>
         </div>
         <button class="wallet-btn" id="walletBtn" type="button"><i data-lucide="wallet"></i> 连接钱包</button>
       </div>
@@ -146,7 +146,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <button class="tab active" type="button" data-view="mine"><i data-lucide="gem"></i> 矿机</button>
       <button class="tab" type="button" data-view="node"><i data-lucide="crown"></i> 节点</button>
       <button class="tab" type="button" data-view="invite"><i data-lucide="share-2"></i> 代收</button>
-      <button class="tab" type="button" data-view="token"><i data-lucide="pie-chart"></i> SPE</button>
+      <button class="tab" type="button" data-view="token"><i data-lucide="pie-chart"></i> SPC</button>
     </nav>
 
     <section class="content-stack">
@@ -159,7 +159,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <i data-lucide="cpu"></i>
         </div>
         <div class="metric-list">
-          <div><span>矿机售价</span><strong id="minerPrice">10 USDT / 台</strong><small>支持 USDT 或等值 SPE</small></div>
+          <div><span>矿机售价</span><strong id="minerPrice">10 USDT / 台</strong><small>支持 USDT 或等值 SPC</small></div>
           <div><span>总算力</span><strong>100,000 T</strong><small>最优性价比</small></div>
           <div><span>算力分配</span><strong>70% / 20% / 10%</strong><small>基础算力 / 直推红包 / 节点燃料</small></div>
           <div><span>回本周期</span><strong>8-15 天</strong><small>后期稳定 30-60 天</small></div>
@@ -174,7 +174,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               <span>支付</span>
               <select id="payToken">
                 <option value="0">USDT</option>
-                <option value="1">SPE</option>
+                <option value="1">SPC</option>
               </select>
             </label>
           </div>
@@ -228,20 +228,20 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <div class="card-head">
           <div>
             <p class="eyebrow">Tokenomics</p>
-            <h2>SPE 销毁与分配</h2>
+            <h2>SPC 销毁与分配</h2>
           </div>
           <i data-lucide="flame"></i>
         </div>
         <div class="token-card">
           <div class="supply">
             <span>总供应量</span>
-            <strong>2100万 SPE</strong>
+            <strong>2100万 SPC</strong>
           </div>
           <div class="burn-rule">
-            <span>每销毁 1 SPE</span>
+            <span>每销毁 1 SPC</span>
             <strong>12,000 T 永久算力</strong>
           </div>
-          <button class="inline-action" id="burnBtn" type="button"><i data-lucide="flame"></i> 销毁 1 SPE 换算力</button>
+          <button class="inline-action" id="burnBtn" type="button"><i data-lucide="flame"></i> 销毁 1 SPC 换算力</button>
           <div class="bars">
             <label><span>挖矿产出</span><i style="--w:55%"></i><b>55%</b></label>
             <label><span>生态发展</span><i style="--w:25%"></i><b>25%</b></label>
@@ -260,7 +260,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <ol>
         <li><strong>新手</strong><span>买 1-3 台矿机，快速上手</span></li>
         <li><strong>中级</strong><span>10-20 台 + 拉 3-5 人，冲节点矿池</span></li>
-        <li><strong>高级</strong><span>50 台 + 大量销毁 SPE，进入蜂窝矿池</span></li>
+        <li><strong>高级</strong><span>50 台 + 大量销毁 SPC，进入蜂窝矿池</span></li>
       </ol>
     </section>
   </section>
@@ -284,7 +284,7 @@ const walletBtn = document.querySelector<HTMLButtonElement>('#walletBtn')!
 const claimBtn = document.querySelector<HTMLButtonElement>('#claimBtn')!
 const minerBtn = document.querySelector<HTMLButtonElement>('#minerBtn')!
 const burnBtn = document.querySelector<HTMLButtonElement>('#burnBtn')!
-const speBalance = document.querySelector<HTMLHeadingElement>('#speBalance')!
+const spcBalance = document.querySelector<HTMLHeadingElement>('#spcBalance')!
 const rankName = document.querySelector<HTMLSpanElement>('#rankName')!
 const claimAmount = document.querySelector<HTMLSpanElement>('#claimAmount')!
 const claimMeta = document.querySelector<HTMLElement>('#claimMeta')!
@@ -367,14 +367,14 @@ async function refreshDashboard() {
     return
   }
 
-  const [account, rewards, spe, config] = await Promise.all([
+  const [account, rewards, spc, config] = await Promise.all([
     runtime.exchange.getAccount(runtime.address),
     runtime.exchange.pendingRewards(runtime.address),
     runtime.spe.balanceOf(runtime.address),
     runtime.exchange.config(),
   ])
 
-  speBalance.textContent = formatToken(spe, 2)
+  spcBalance.textContent = formatToken(spc, 2)
   claimAmount.textContent = `+${formatToken(rewards.totalReward ?? rewards[3], 3)}`
   rankName.textContent = rankNames[Number(account.rank ?? account[10])] || '未知等级'
   powerStat.textContent = formatPower(account.personalPower ?? account[4])
@@ -429,7 +429,7 @@ async function buyMiner() {
     const referrerValue = referrerInput.value.trim()
     const referrer = referrerValue && isAddress(referrerValue) ? referrerValue : zeroAddress
     const config = await current.exchange.config()
-    const unitPrice: bigint = mode === 0 ? (config.stablePricePerMiner ?? config[0]) : (config.spePricePerMiner ?? config[1])
+    const unitPrice: bigint = mode === 0 ? (config.stablePricePerMiner ?? config[0]) : (config.spcPricePerMiner ?? config[1])
     const cost = unitPrice * quantity
     const token = mode === 0 ? current.usdt : current.spe
 
@@ -464,20 +464,20 @@ async function claimRewards() {
   }
 }
 
-async function burnSpe() {
+async function burnSpc() {
   if (busy) return
 
   try {
-    setBusy(true, '正在准备销毁 SPE...')
+    setBusy(true, '正在准备销毁 SPC...')
     const current = await ensureRuntime()
-    const amount = oneSpe()
+    const amount = oneSpc()
 
     await approveIfNeeded(current.spe, current.address, addresses.exchange, amount)
 
     setStatus('正在提交销毁交易...')
     const tx = await current.exchange.burnSpeForPower(amount)
     await tx.wait()
-    setStatus('已销毁 1 SPE，新增 12,000 T 算力', 'ok')
+    setStatus('已销毁 1 SPC，新增 12,000 T 算力', 'ok')
     await refreshDashboard()
   } catch (error) {
     setStatus(error instanceof Error ? error.message : '销毁失败', 'warn')
@@ -489,7 +489,7 @@ async function burnSpe() {
 walletBtn.addEventListener('click', connectWallet)
 minerBtn.addEventListener('click', buyMiner)
 claimBtn.addEventListener('click', claimRewards)
-burnBtn.addEventListener('click', burnSpe)
+burnBtn.addEventListener('click', burnSpc)
 menuBtn.addEventListener('click', () => toggleMenu(!appMenu.classList.contains('open')))
 menuCloseBtn.addEventListener('click', () => toggleMenu(false))
 menuBackdrop.addEventListener('click', () => toggleMenu(false))

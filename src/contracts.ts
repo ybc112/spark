@@ -17,11 +17,11 @@ export const rankNames = ['游客', '体验矿工', '正式矿工', '节点矿�
 
 export const exchangeAbi = [
   'function buyMiners(uint256 quantity,uint8 payToken,address referrer) external',
-  'function burnSpeForPower(uint256 speAmount) external',
+  'function burnSpeForPower(uint256 spcAmount) external',
   'function claim() external returns (uint256)',
   'function pendingRewards(address account) view returns (uint256 miningReward,uint256 referralReward,uint256 nodeReward,uint256 totalReward)',
   'function getAccount(address account) view returns (address referrer,uint256 miners,uint256 directMiners,uint256 teamMiners,uint256 personalPower,uint256 basePower,uint256 referralPower,uint256 nodeFuelPower,uint256 burnedPower,uint256 burnedSpe,uint8 rank,uint256 referralRewardExpireAt)',
-  'function config() view returns (uint256 stablePricePerMiner,uint256 spePricePerMiner,uint256 minerBasePower,uint256 minerReferralPower,uint256 minerNodeFuelPower,uint256 powerPerSpeBurned,uint256 dailyRewardPerPower,uint256 dailyNodeReward,uint256 referralRewardBase,uint256 claimWindow)',
+  'function config() view returns (uint256 stablePricePerMiner,uint256 spcPricePerMiner,uint256 minerBasePower,uint256 minerReferralPower,uint256 minerNodeFuelPower,uint256 powerPerSpcBurned,uint256 dailyRewardPerPower,uint256 dailyNodeReward,uint256 referralRewardBase,uint256 claimWindow)',
   'function totalMiners() view returns (uint256)',
   'function totalPower() view returns (uint256)',
   'function totalNodeFuelPower() view returns (uint256)',
@@ -95,7 +95,7 @@ export function formatPower(value: bigint | number | string) {
   return `${numeric.toLocaleString('en-US')} T`
 }
 
-export function oneSpe() {
+export function oneSpc() {
   return parseEther('1')
 }
 
