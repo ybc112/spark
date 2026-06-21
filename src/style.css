@@ -526,6 +526,13 @@ h2 {
   font-weight: 700;
 }
 
+.trial-hint {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
 .claim-block {
   margin-top: 66px;
 }

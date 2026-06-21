@@ -122,6 +122,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <span id="rankName">Pre-Crypto KOL</span>
         <i data-lucide="chevrons-right"></i>
       </button>
+      <p class="trial-hint">注册送的体验算力在授予那一刻就开始生效</p>
 
       <div class="claim-block">
         <div class="claim-head">
