@@ -15,8 +15,8 @@ async function main() {
   const spe = await SparkToken.deploy('Spark Exchange Token', 'SPE', owner, initialSupply)
   await spe.waitForDeployment()
 
-  const ybt = await SparkToken.deploy('Spark Yield Token', 'YBT', owner, 0)
-  await ybt.waitForDeployment()
+  const spc = await SparkToken.deploy('Spark Yield Token', 'SPC', owner, 0)
+  await spc.waitForDeployment()
 
   const usdt = await SparkToken.deploy('Mock USDT', 'USDT', owner, testSupply)
   await usdt.waitForDeployment()
@@ -24,21 +24,21 @@ async function main() {
   const SparkExchange = await hre.ethers.getContractFactory('SparkExchange')
   const exchange = await SparkExchange.deploy(
     await spe.getAddress(),
-    await ybt.getAddress(),
+    await spc.getAddress(),
     await usdt.getAddress(),
     owner,
     owner,
   )
   await exchange.waitForDeployment()
 
-  await (await ybt.setMinter(await exchange.getAddress(), true)).wait()
+  await (await spc.setMinter(await exchange.getAddress(), true)).wait()
 
   const addresses = {
     network: hre.network.name,
     chainId: Number((await hre.ethers.provider.getNetwork()).chainId),
     deployer: owner,
     spe: await spe.getAddress(),
-    ybt: await ybt.getAddress(),
+    spc: await spc.getAddress(),
     usdt: await usdt.getAddress(),
     exchange: await exchange.getAddress(),
   }
@@ -46,7 +46,7 @@ async function main() {
   const envText = [
     `VITE_SPARK_EXCHANGE_ADDRESS=${addresses.exchange}`,
     `VITE_SPE_TOKEN_ADDRESS=${addresses.spe}`,
-    `VITE_YBT_TOKEN_ADDRESS=${addresses.ybt}`,
+    `VITE_SPC_TOKEN_ADDRESS=${addresses.spc}`,
     `VITE_USDT_TOKEN_ADDRESS=${addresses.usdt}`,
     `VITE_CHAIN_ID=${addresses.chainId}`,
     '',

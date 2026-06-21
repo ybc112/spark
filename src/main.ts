@@ -117,7 +117,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <span>待领取</span>
           <small id="claimMeta">15 / 15</small>
         </div>
-        <div class="claim-value"><span id="claimAmount">+2.205</span><small>YBT</small></div>
+        <div class="claim-value"><span id="claimAmount">+2.205</span><small>SPC</small></div>
         <p id="claimHint">推荐好友已签到收益，48 小时未领取即关闭</p>
       </div>
 

@@ -13,7 +13,7 @@ async function main() {
   const userAddress = await user.getAddress()
 
   const spe = await hre.ethers.getContractAt('SparkToken', deployment.spe)
-  const ybt = await hre.ethers.getContractAt('SparkToken', deployment.ybt)
+  const spc = await hre.ethers.getContractAt('SparkToken', deployment.spc)
   const usdt = await hre.ethers.getContractAt('SparkToken', deployment.usdt)
   const exchange = await hre.ethers.getContractAt('SparkExchange', deployment.exchange)
 
@@ -32,7 +32,7 @@ async function main() {
   const beforeClaim = await exchange.pendingRewards(userAddress)
   await (await exchange.connect(user).claim()).wait()
   const account = await exchange.getAccount(userAddress)
-  const ybtBalance = await ybt.balanceOf(userAddress)
+  const spcBalance = await spc.balanceOf(userAddress)
 
   console.log(JSON.stringify({
     user: userAddress,
@@ -40,7 +40,7 @@ async function main() {
     personalPower: account.personalPower.toString(),
     rank: Number(account.rank),
     pendingBeforeClaim: hre.ethers.formatEther(beforeClaim.totalReward),
-    ybtBalance: hre.ethers.formatEther(ybtBalance),
+    spcBalance: hre.ethers.formatEther(spcBalance),
   }, null, 2))
 }
 

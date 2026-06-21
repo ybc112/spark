@@ -4,12 +4,12 @@ import type { Eip1193Provider } from 'ethers'
 export const addresses = {
   exchange: import.meta.env.VITE_SPARK_EXCHANGE_ADDRESS || '',
   spe: import.meta.env.VITE_SPE_TOKEN_ADDRESS || '',
-  ybt: import.meta.env.VITE_YBT_TOKEN_ADDRESS || '',
+  spc: import.meta.env.VITE_SPC_TOKEN_ADDRESS || '',
   usdt: import.meta.env.VITE_USDT_TOKEN_ADDRESS || '',
   chainId: Number(import.meta.env.VITE_CHAIN_ID || 0),
 }
 
-export const isConfigured = Boolean(addresses.exchange && addresses.spe && addresses.ybt && addresses.usdt)
+export const isConfigured = Boolean(addresses.exchange && addresses.spe && addresses.spc && addresses.usdt)
 
 export const zeroAddress = '0x0000000000000000000000000000000000000000'
 
@@ -40,7 +40,7 @@ export type WalletRuntime = {
   address: string
   exchange: Contract
   spe: Contract
-  ybt: Contract
+  spc: Contract
   usdt: Contract
 }
 
@@ -67,7 +67,7 @@ export async function createRuntime(): Promise<WalletRuntime> {
     address,
     exchange: new Contract(addresses.exchange, exchangeAbi, signer),
     spe: new Contract(addresses.spe, erc20Abi, signer),
-    ybt: new Contract(addresses.ybt, erc20Abi, signer),
+    spc: new Contract(addresses.spc, erc20Abi, signer),
     usdt: new Contract(addresses.usdt, erc20Abi, signer),
   }
 }

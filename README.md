@@ -4,15 +4,15 @@ Spark Exchange is a mobile-first DePIN mining and referral DApp prototype.
 
 ## Current Scope
 
-- SPE token and YBT reward token
+- SPC token and SPC reward token
 - Test USDT token for local demos
-- Miner purchase with USDT or SPE
+- Miner purchase with USDT or SPC
 - 100,000 T power per miner split as 70,000 / 20,000 / 10,000
 - Referral binding and six-level referral rewards
 - 48-hour referral reward claim window
 - Mining rewards based on personal power and elapsed time
 - Node pool rewards for qualified node ranks
-- SPE burn-to-power rule: 1 SPE = 12,000 T
+- SPC burn-to-power rule: 1 SPC = 12,000 T
 - Owner-managed treasury, payment token, rank, and economic parameters
 - Frontend wallet connection, allowance, purchase, claim, burn, and dashboard reads
 
