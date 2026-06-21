@@ -222,6 +222,162 @@ button {
   height: 27px;
 }
 
+.menu-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  background: rgba(2, 3, 10, 0.58);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.menu-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.app-menu {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 9;
+  width: min(342px, calc(100% - 36px));
+  padding: 18px;
+  border: 1px solid rgba(255, 214, 107, 0.28);
+  border-radius: 22px;
+  background:
+    linear-gradient(150deg, rgba(255, 214, 107, 0.09), transparent 38%),
+    rgba(8, 10, 24, 0.96);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(22px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(18px) scale(0.98);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.app-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+}
+
+.menu-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.menu-close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.menu-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.menu-actions,
+.menu-cta {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.menu-actions {
+  grid-template-columns: 1fr 1fr;
+}
+
+.menu-actions button,
+.menu-cta button {
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.menu-actions button {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  min-height: 82px;
+  padding: 14px;
+}
+
+.menu-actions svg,
+.menu-cta svg {
+  width: 18px;
+  height: 18px;
+  color: var(--gold);
+}
+
+.menu-actions span {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.menu-panel {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(82, 184, 255, 0.2);
+  border-radius: 14px;
+  background: rgba(82, 184, 255, 0.08);
+}
+
+.menu-panel span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.menu-panel strong {
+  color: #a9dcff;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.menu-cta {
+  grid-template-columns: 1fr;
+}
+
+.menu-cta button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  font-weight: 800;
+}
+
+.menu-cta button:first-child {
+  background: rgba(82, 184, 255, 0.13);
+  color: #a9dcff;
+}
+
+.menu-cta button:last-child {
+  border-color: rgba(255, 214, 107, 0.46);
+  background: rgba(255, 214, 107, 0.1);
+  color: var(--gold);
+}
+
+.menu-cta button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
 .hero-panel,
 .glass-card,
 .growth-card {

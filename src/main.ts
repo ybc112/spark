@@ -63,10 +63,36 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <small>Exchange</small>
         </span>
       </a>
-      <button class="icon-btn" type="button" aria-label="打开菜单"><i data-lucide="menu"></i></button>
+      <button class="icon-btn" id="menuBtn" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="appMenu"><i data-lucide="menu"></i></button>
     </header>
 
+    <div class="menu-backdrop" id="menuBackdrop" aria-hidden="true"></div>
+    <aside class="app-menu" id="appMenu" aria-hidden="true">
+      <div class="menu-head">
+        <div>
+          <p class="eyebrow">Spark Console</p>
+          <h2>快捷菜单</h2>
+        </div>
+        <button class="menu-close" id="menuCloseBtn" type="button" aria-label="关闭菜单"><i data-lucide="x"></i></button>
+      </div>
+      <div class="menu-actions">
+        <button type="button" data-menu-view="mine"><i data-lucide="gem"></i><span>矿机配置</span></button>
+        <button type="button" data-menu-view="node"><i data-lucide="crown"></i><span>节点权益</span></button>
+        <button type="button" data-menu-view="invite"><i data-lucide="share-2"></i><span>代际收益</span></button>
+        <button type="button" data-menu-view="token"><i data-lucide="flame"></i><span>SPE 销毁</span></button>
+      </div>
+      <div class="menu-panel">
+        <span>链上状态</span>
+        <strong id="menuStatus">等待连接钱包</strong>
+      </div>
+      <div class="menu-cta">
+        <button type="button" id="menuWalletBtn"><i data-lucide="wallet"></i> 连接钱包</button>
+        <button type="button" id="menuClaimBtn"><i data-lucide="zap"></i> 领取收益</button>
+      </div>
+    </aside>
+
     <div class="chain-banner" id="chainBanner"></div>
+
 
     <section class="hero-panel">
       <div class="ticker-row">
@@ -247,6 +273,13 @@ let runtime: RuntimeState = null
 let busy = false
 
 const chainBanner = document.querySelector<HTMLDivElement>('#chainBanner')!
+const menuBtn = document.querySelector<HTMLButtonElement>('#menuBtn')!
+const menuBackdrop = document.querySelector<HTMLDivElement>('#menuBackdrop')!
+const appMenu = document.querySelector<HTMLElement>('#appMenu')!
+const menuCloseBtn = document.querySelector<HTMLButtonElement>('#menuCloseBtn')!
+const menuWalletBtn = document.querySelector<HTMLButtonElement>('#menuWalletBtn')!
+const menuClaimBtn = document.querySelector<HTMLButtonElement>('#menuClaimBtn')!
+const menuStatus = document.querySelector<HTMLElement>('#menuStatus')!
 const walletBtn = document.querySelector<HTMLButtonElement>('#walletBtn')!
 const claimBtn = document.querySelector<HTMLButtonElement>('#claimBtn')!
 const minerBtn = document.querySelector<HTMLButtonElement>('#minerBtn')!
@@ -269,6 +302,7 @@ const panels = document.querySelectorAll<HTMLElement>('.view-panel')
 function setStatus(message: string, tone: 'info' | 'ok' | 'warn' = 'info') {
   chainBanner.textContent = message
   chainBanner.dataset.tone = tone
+  menuStatus.textContent = message
 }
 
 function setBusy(nextBusy: boolean, label = '处理中...') {
@@ -276,9 +310,26 @@ function setBusy(nextBusy: boolean, label = '处理中...') {
   claimBtn.disabled = nextBusy
   minerBtn.disabled = nextBusy
   burnBtn.disabled = nextBusy
+  menuWalletBtn.disabled = nextBusy
+  menuClaimBtn.disabled = nextBusy
   if (nextBusy) {
     setStatus(label)
   }
+}
+
+function toggleMenu(open: boolean) {
+  appMenu.classList.toggle('open', open)
+  menuBackdrop.classList.toggle('open', open)
+  appMenu.setAttribute('aria-hidden', String(!open))
+  menuBackdrop.setAttribute('aria-hidden', String(!open))
+  menuBtn.setAttribute('aria-expanded', String(open))
+}
+
+function selectView(target: string | undefined) {
+  if (!target) return
+  tabs.forEach((item) => item.classList.toggle('active', item.dataset.view === target))
+  panels.forEach((panel) => panel.classList.toggle('active', panel.dataset.panel === target))
+  document.querySelector<HTMLElement>('.content-stack')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 function getQuantity() {
@@ -439,13 +490,35 @@ walletBtn.addEventListener('click', connectWallet)
 minerBtn.addEventListener('click', buyMiner)
 claimBtn.addEventListener('click', claimRewards)
 burnBtn.addEventListener('click', burnSpe)
+menuBtn.addEventListener('click', () => toggleMenu(!appMenu.classList.contains('open')))
+menuCloseBtn.addEventListener('click', () => toggleMenu(false))
+menuBackdrop.addEventListener('click', () => toggleMenu(false))
+menuWalletBtn.addEventListener('click', () => {
+  toggleMenu(false)
+  void connectWallet()
+})
+menuClaimBtn.addEventListener('click', () => {
+  toggleMenu(false)
+  void claimRewards()
+})
 
 tabs.forEach((tab) => {
   tab.addEventListener('click', () => {
-    const target = tab.dataset.view
-    tabs.forEach((item) => item.classList.toggle('active', item === tab))
-    panels.forEach((panel) => panel.classList.toggle('active', panel.dataset.panel === target))
+    selectView(tab.dataset.view)
   })
+})
+
+document.querySelectorAll<HTMLButtonElement>('[data-menu-view]').forEach((button) => {
+  button.addEventListener('click', () => {
+    selectView(button.dataset.menuView)
+    toggleMenu(false)
+  })
+})
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    toggleMenu(false)
+  }
 })
 
 window.ethereum?.on?.('accountsChanged', () => {
